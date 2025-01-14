@@ -1,5 +1,4 @@
 require "open-uri"
-require "pry-byebug"
 
 puts "Destroying all posts..."
 Post.destroy_all

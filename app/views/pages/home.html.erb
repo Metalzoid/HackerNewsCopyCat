@@ -1,2 +1,7 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="bg-sable">
+  <% @posts.each_with_index do |post, index| %>
+    <div class="d-flex px-4 py-2 flex-column" id="<%= post.id %>">
+      <%= render "pages/post", post: post, index: index %>
+    </div>
+   <% end %>
+</div>

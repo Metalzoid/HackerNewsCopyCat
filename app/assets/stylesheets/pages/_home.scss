@@ -1,1 +1,12 @@
-// Specific CSS for your home-page
+.bg-sable {
+  background-color: $sable !important;
+  text-secondary {
+    color: #c0c0c0;
+  }
+  .post-url {
+    a {
+      text-decoration: none;
+      color: #c0c0c0;
+    }
+  }
+}
