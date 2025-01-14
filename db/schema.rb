@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_14_134449) do
     t.string "type"
     t.string "url"
     t.integer "score"
+    t.string "author"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

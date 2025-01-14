@@ -5,6 +5,7 @@ class CreatePosts < ActiveRecord::Migration[7.1]
       t.string :type
       t.string :url
       t.integer :score
+      t.string :author
       t.references :user, null: false, foreign_key: true
 
       t.timestamps
