@@ -1,0 +1,3 @@
+class Reaction < Interaction
+
+end

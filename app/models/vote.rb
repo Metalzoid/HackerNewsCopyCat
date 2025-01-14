@@ -1,0 +1,3 @@
+class Vote < Interaction
+
+end
