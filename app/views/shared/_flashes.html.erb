@@ -1,14 +1,9 @@
-<% if notice %>
-  <div class="alert alert-info alert-dismissible fade show m-1" role="alert">
-    <%= notice %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-    </button>
-  </div>
-<% end %>
 <% if alert %>
-  <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
-    <%= alert %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-    </button>
-  </div>
+  <hr data-controller="sweetalert" data-sweetalert-flashes-value="alert:<%= alert %>" hidden/>
+<% elsif notice %>
+  <hr data-controller="sweetalert" data-sweetalert-flashes-value="notice:<%= notice %>" hidden/>
+<% elsif voted %>
+  <hr data-controller="sweetalert" data-sweetalert-flashes-value="voted:<%= voted %>" hidden/>
+<% elsif unvoted %>
+  <hr data-controller="sweetalert" data-sweetalert-flashes-value="unvoted:<%= unvoted %>" hidden/>
 <% end %>

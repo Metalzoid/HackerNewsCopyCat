@@ -1,17 +1,22 @@
 <% vote = post.votes.find_by(user: current_user) %>
-<div class="d-flex gap-4 text-black align-items-center">
-  <small class="text-secondary"><%= index + 1 %>.</small>
+<div class="d-flex text-black" data-controller="sweetalert">
+  <small class="text-secondary me-3"><%= index + 1 %>.</small>
   <% if vote %>
     <%= link_to vote_path(vote), data: { turbo_method: :delete } do %>
-    <i class="fa-solid fa-caret-down" style="color:rgb(255, 0, 0);"></i>
+    <i class="fa-solid fa-caret-down mt-2" style="color:rgb(255, 0, 0);"></i>
     <% end %>
   <% else %>
     <%= link_to post_votes_path(post.id), data: { turbo_method: :post } do %>
-    <i class="fa-solid fa-caret-up" style="color: #f5ae14;"></i>
+    <i class="fa-solid fa-caret-up mt-2" style="color: #ff6600;"></i>
     <% end %>
   <% end %>
-  <div class="d-flex flex-column">
-    <small><%= post.title %><span class="text-secondary post-url"> (<%= link_to post.url %>)</span></small>
+  <div class="d-flex flex-column ms-2">
+    <small>
+      <%= link_to post.title, post_path(post), class: "text-decoration-none text-black" %>
+      <span class="text-secondary post-url">
+        (<%= link_to nil, post.url %>)
+      </span>
+    </small>
     <small class="text-secondary"><%= post.score + post.votes.count %> points | by <%= post.author %></small>
   </div>
 </div>
