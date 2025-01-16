@@ -1,2 +1,13 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<div class="container bg-sable p-4">
+  <h1 class="text-black fs-4"><%= @post.title %></h1>
+  <p class="text-secondary"><%= link_to nil, @post.url, class: "text-warning fs-6 text-decoration-none" %> | <%= @post.post_type %> | by <%= @post.author %> | <%= @post.score + @post.votes.count %> vote<%= @post.votes.count > 1 ? "s" : "" %> | <%= @post.comments.count %> comment<%= @post.comments.count > 1 ? "s" : "" %> </p>
+  <div class="gap-3 d-flex flex-column mb-4" id="comments">
+    <% if @post.comments.count.zero? %>
+      <p class="text-secondary">No comment for this post.</p>
+    <% end %>
+    <% @post.comments.each do |comment| %>
+      <%= render "posts/comment", comment: comment, reaction: @reaction %>
+    <% end %>
+  </div>
+  <%= render "posts/comment_form", comment: @comment, post: @post %>
+</div>

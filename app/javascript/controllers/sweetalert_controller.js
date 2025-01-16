@@ -7,6 +7,26 @@ export default class extends Controller {
 
   connect() {
     window.addEventListener("turbo:load", (event) => {
+      if (this.flashesValue !== "") {
+        this.init();
+      }
+    });
+
+    window.addEventListener("turbo:before-stream-render", (event) => {
+      const fallbackToDefaultActions = event.detail.render;
+      event.detail.render = (streamElement) => {
+        if (streamElement.target == "flashes") {
+          const parser = new DOMParser();
+          const template = streamElement.querySelector("template").innerHTML;
+          const element = parser.parseFromString(template, "text/html");
+          this.flashesValue =
+            element.querySelector("hr").dataset.sweetalertFlashesValue;
+          this.init();
+        } else {
+          fallbackToDefaultActions(streamElement);
+        }
+      };
+
       if (this.flashesValue) {
         this.init();
       }
@@ -45,6 +65,10 @@ export default class extends Controller {
   }
 
   fire(options) {
-    window.Swal.fire(options);
+    window.Swal.fire(options).then((result) => {
+      if (result) {
+        this.flashesValue = "";
+      }
+    });
   }
 }

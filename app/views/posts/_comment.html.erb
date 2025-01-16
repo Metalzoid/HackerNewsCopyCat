@@ -1,0 +1,13 @@
+<div class="bg-white d-flex flex-column border border-2 border-warning p-4 text-black post-comment w-50" data-controller="emoji-picker" id="comment-<%= comment.id %>">
+  <u><%= comment.created_at.strftime("%e %B %Y at %k:%M") %></u>
+  <p class="mb-4 fs-5"><%= comment.content %></p>
+  <small class="comment-author">By <%= comment.user.username %></small>
+  <%= render "posts/reaction_form", comment: comment, reaction: reaction  %>
+  <div class="div-picker">
+    <% comment.reactions.each do |reaction| %>
+      <%= reaction.content %>
+    <% end %>
+    <i class="fa-solid fa-face-smile ms-1" data-action="click->emoji-picker#openPicker" style="cursor: pointer;"></i>
+    <span class="picker-placeholder"></span>
+  </div>
+</div>

@@ -1,9 +1,11 @@
-<% if alert %>
-  <hr data-controller="sweetalert" data-sweetalert-flashes-value="alert:<%= alert %>" hidden/>
-<% elsif notice %>
-  <hr data-controller="sweetalert" data-sweetalert-flashes-value="notice:<%= notice %>" hidden/>
-<% elsif voted %>
-  <hr data-controller="sweetalert" data-sweetalert-flashes-value="voted:<%= voted %>" hidden/>
-<% elsif unvoted %>
-  <hr data-controller="sweetalert" data-sweetalert-flashes-value="unvoted:<%= unvoted %>" hidden/>
-<% end %>
+<div id="flashes">
+  <% if alert %>
+    <hr data-controller="sweetalert" data-sweetalert-flashes-value="alert:<%= alert %>" hidden/>
+  <% elsif notice %>
+    <hr data-controller="sweetalert" data-sweetalert-flashes-value="notice:<%= notice %>" hidden/>
+  <% elsif voted %>
+    <hr data-controller="sweetalert" data-sweetalert-flashes-value="voted:<%= voted %>" hidden/>
+  <% elsif unvoted %>
+    <hr data-controller="sweetalert" data-sweetalert-flashes-value="unvoted:<%= unvoted %>" hidden/>
+  <% end %>
+</div>

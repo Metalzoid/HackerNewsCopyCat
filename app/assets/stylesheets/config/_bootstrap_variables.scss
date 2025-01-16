@@ -26,3 +26,8 @@ $border-radius-xl: 0.5rem;
 $border-radius-xxl: 1rem;
 
 // Override other variables below!
+$focus-ring-color: $orange;
+$focus-ring-width: 0.12rem;
+$focus-ring-opacity: 0.10;
+$focus-ring-blur: 0;
+$focus-ring-box-shadow: 0 0 $focus-ring-blur $focus-ring-width $focus-ring-color;

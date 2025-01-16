@@ -1,0 +1,27 @@
+.post-comment {
+  position: relative;
+  .comment-author {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-style: italic;
+  }
+  u {
+    font-size: 0.8rem;
+  }
+
+  .div-picker {
+    background-color: #f6c577;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.2rem;
+    position: absolute;
+    bottom: -1rem;
+    left: 2rem;
+
+    .picker-placeholder {
+      position: absolute;
+      z-index: 1;
+      left: 3rem;
+    }
+  }
+}
