@@ -1,5 +1,6 @@
 <div class="d-flex" id="post-<%= post.id %>-content">
-  <% if post.votes.find_by(user: current_user) %>
+  <% vote = post.votes.find_by(user: current_user) %>
+  <% if vote %>
     <%= link_to vote_path(vote), data: { turbo_method: :delete } do %>
     <i class="fa-solid fa-caret-down mt-2" style="color:rgb(255, 0, 0);"></i>
     <% end %>
