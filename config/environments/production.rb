@@ -59,7 +59,7 @@ Rails.application.configure do
         timestamp: timestamp.utc.iso8601,
         level: severity,
         message: msg,
-        progname: progname
+        progname: app_name
       }
       log.to_json + "\n"  # Ici, on génère du JSON
     } }
