@@ -1,5 +1,5 @@
 require "active_support/core_ext/integer/time"
-require_relative "../initializers/json_log_formatter"
+# require_relative "../initializers/json_log_formatter"
 
 Rails.application.configure do
   config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }
@@ -65,9 +65,9 @@ Rails.application.configure do
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
-  config.log_formatter = JsonLogFormatter.new
-  config.logger = ActiveSupport::Logger.new(STDOUT)
-  config.logger.formatter = config.log_formatter
+  # config.log_formatter = JsonLogFormatter.new
+  # config.logger = ActiveSupport::Logger.new(STDOUT)
+  # config.logger.formatter = config.log_formatter
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
