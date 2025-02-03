@@ -55,6 +55,7 @@ Rails.application.configure do
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)
     .tap  { |logger| logger.formatter = proc { |severity, timestamp, _progname, msg|
+      app_name = Rails.application.class.module_parent.name
       log = {
         timestamp: timestamp.utc.iso8601,
         level: severity,
