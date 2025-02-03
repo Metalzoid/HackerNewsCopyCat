@@ -1,5 +1,4 @@
 require "active_support/core_ext/integer/time"
-# require_relative "../initializers/json_log_formatter"
 
 Rails.application.configure do
   config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }
@@ -55,8 +54,17 @@ Rails.application.configure do
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)
-    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
+    .tap  { |logger| logger.formatter = proc { |severity, timestamp, progname, msg|
+      log = {
+        timestamp: timestamp.utc.iso8601,
+        level: severity,
+        message: msg,
+        progname: progname
+      }
+      log.to_json + "\n"  # Ici, on génère du JSON
+    } }
     .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
@@ -65,9 +73,6 @@ Rails.application.configure do
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
-  # config.log_formatter = JsonLogFormatter.new
-  # config.logger = ActiveSupport::Logger.new(STDOUT)
-  # config.logger.formatter = config.log_formatter
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -94,9 +99,9 @@ Rails.application.configure do
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
-  # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-end
+    #   "example.com",     # Allow requests from example.com
+    #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
+    # ]
+    # Skip DNS rebinding protection for the default health check endpoint.
+    # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  end
