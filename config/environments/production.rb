@@ -52,16 +52,16 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
-  # Log to STDOUT by default
+  # Log to STDOUT JSON formatted for logstash
   config.logger = ActiveSupport::Logger.new(STDOUT)
     .tap  { |logger| logger.formatter = proc { |severity, timestamp, progname, msg|
       log = {
-        timestamp: timestamp.utc.iso8601,
+        timestamp: timestamp.utc.iso8601(3),
         severity: severity,
         message: msg.to_s,
         progname: progname
       }
-      log.to_json + "\n"  # Ici, on génère du JSON
+      log.to_json + "\n"
     } }
     .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
