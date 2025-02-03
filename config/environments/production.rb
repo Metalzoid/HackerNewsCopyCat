@@ -54,13 +54,12 @@ Rails.application.configure do
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)
-    .tap  { |logger| logger.formatter = proc { |severity, timestamp, _progname, msg|
-      app_name = Rails.application.class.module_parent.name
+    .tap  { |logger| logger.formatter = proc { |severity, timestamp, progname, msg|
       log = {
         timestamp: timestamp.utc.iso8601,
-        level: severity,
-        message: msg,
-        progname: app_name
+        severity: severity,
+        message: msg.to_s,
+        progname: progname
       }
       log.to_json + "\n"  # Ici, on génère du JSON
     } }
