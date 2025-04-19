@@ -9,16 +9,14 @@ ARG RAILS_MASTER_KEY
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development" \
-    RAILS_MASTER_KEY=$RAILS_MASTER_KEY
+    BUNDLE_WITHOUT="development"
 
 # --- Build stage ---
 FROM base as build
 
 # Install required system packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
-    build-essential git libpq-dev libvips pkg-config curl && \
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -34,16 +32,15 @@ COPY . .
 
 # Precompile bootsnap + assets
 RUN bundle exec bootsnap precompile app/ lib/
-RUN bundle exec bin/rails assets:clobber
-RUN bundle exec bin/rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec bin/rails assets:clobber
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec bin/rails assets:precompile
 
 # --- Final stage ---
 FROM base
 
 # Install runtime packages + Node.js
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
-    curl libvips postgresql-client && \
+    apt-get install --no-install-recommends -y curl libvips postgresql-client && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
