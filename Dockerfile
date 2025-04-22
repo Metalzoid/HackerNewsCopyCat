@@ -32,8 +32,6 @@ COPY . .
 
 # Precompile bootsnap + assets
 RUN bundle exec bootsnap precompile app/ lib/
-RUN SECRET_KEY_BASE_DUMMY=1 bundle exec bin/rails assets:clobber
-RUN SECRET_KEY_BASE_DUMMY=1 bundle exec bin/rails assets:precompile
 
 # --- Final stage ---
 FROM base
@@ -51,7 +49,9 @@ COPY --from=build /rails /rails
 
 # Create user and set ownership
 RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    chown -R rails:rails db log storage tmp public
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec bin/rails assets:clobber
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec bin/rails assets:precompile
 USER rails:rails
 
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
